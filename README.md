@@ -8,7 +8,7 @@ API](https://webaudio.github.io/web-audio-api/)
 
 ## Installation
 
-$ bower install
+$ bower install OR spago build
   
 ## Documentation
 Module documentation is [published on Pursuit](https://pursuit.purescript.org/packages/purescript-webaudio)
@@ -16,10 +16,13 @@ Module documentation is [published on Pursuit](https://pursuit.purescript.org/pa
 ## Examples  
 
 To build the examples perform the following scripts in order:
-1. `npm run build:example:xx` where xx is the example (siren, gain, decode, decodeAsync)
+1. `npm run build:example:xx` where xx is the example (squareWave, gain, decode, decodeAsync)
 
 To run the examples in your browser, perform the following scripts in order:
-1. `npm run exec:example:xx` where xx is the example (siren, gain, decode, decodeAsync)
+1. `npm run exec:example:xx` where xx is the example (squareWave, gain, decode, decodeAsync)
+
+Note: The resolutions in the bower.json file (e.g., "purescript-typelevel") are required to compile and run "squareWave". These versions don't appear to conflict
+with the purescript-webaudio libary.
 
 ## Tests
 

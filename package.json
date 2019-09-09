@@ -9,7 +9,7 @@
   "main": "",
   "scripts": {
     "postinstall": "bower install",
-    "build:clean": "rm -rf dist output examples/*/output test/*/output",
+    "clean": "rm -rf dist bower_components output examples/*/output test/*/output",
     "build": "pulp build",
     "build:example:squareWave": "pulp browserify --main SquareWave --to examples/square-wave/output/bundle.js -I examples/square-wave",
     "exec:example:squareWave": "cd examples/square-wave/ && python -m SimpleHTTPServer 8000",

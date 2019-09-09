@@ -1,9 +1,9 @@
 module Audio.WebAudio.BaseAudioContext
-       ( newAudioContext, destination, sampleRate, currentTime, state
+       ( newAudioContext, destination, listener, sampleRate, currentTime, state
        , suspend, resume, close, decodeAudioData, decodeAudioDataAsync
        , createBufferSource, createGain, createOscillator
        , createAnalyser, createBiquadFilter, createConvolver, createDelay
-       , createDynamicsCompressor, createStereoPanner
+       , createDynamicsCompressor, createStereoPanner, createPanner
        ) where
 
 -- | In this library, BaseAudioContext is used as a factory for creating the
@@ -13,7 +13,7 @@ module Audio.WebAudio.BaseAudioContext
 
 import Prelude
 
-import Audio.WebAudio.Types (AudioBuffer, AudioBufferSourceNode, AudioContext, DestinationNode, GainNode, OscillatorNode, DelayNode, BiquadFilterNode, AnalyserNode, StereoPannerNode, DynamicsCompressorNode, ConvolverNode, Seconds, Value, AudioContextState(..))
+import Audio.WebAudio.Types (AudioBuffer, AudioBufferSourceNode, AudioContext, DestinationNode, GainNode, AudioListener, OscillatorNode, DelayNode, BiquadFilterNode, AnalyserNode, StereoPannerNode, DynamicsCompressorNode, ConvolverNode, PannerNode, Seconds, Value, AudioContextState(..))
 import Audio.WebAudio.Utils (unsafeGetProp)
 import Data.ArrayBuffer.Types (ArrayBuffer)
 import Effect (Effect)
@@ -32,6 +32,9 @@ destination
   :: AudioContext
   -> Effect DestinationNode
 destination = unsafeGetProp "destination"
+
+listener :: AudioContext -> Effect AudioListener
+listener = unsafeGetProp "listener"
 
 -- | The sample rate (in sample-frames per second) at which the BaseAudioContext handles audio.
 foreign import sampleRate
@@ -141,3 +144,6 @@ foreign import createDynamicsCompressor
 foreign import createConvolver
   :: AudioContext
   -> Effect ConvolverNode
+
+-- | Create a PannerNode,
+foreign import createPanner :: AudioContext -> Effect PannerNode

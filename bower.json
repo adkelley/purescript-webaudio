@@ -41,9 +41,12 @@
     "purescript-js-timers": "^4.0.0",
     "purescript-affjax": "^6.0.0",
     "purescript-assert": "^4.0.0",
-    "purescript-refs": "^4.1.0"
+    "purescript-refs": "^4.1.0",
+    "purescript-typelevel": "^6.0.0",
+    "purescript-typelevel-prelude": "^5.0.0"
   },
   "resolutions": {
-    "purescript-arraybuffer-types": "^2.0.0"
+    "purescript-typelevel": "^6.0.0",
+    "purescript-typelevel-prelude": "^5.0.0"
   }
 }

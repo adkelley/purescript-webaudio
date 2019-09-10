@@ -32,7 +32,7 @@ loadSoundBuffer ctx filename = do
 -- | load and decode an array of audio buffers from a set of resources
 loadSoundBuffers
   :: AudioContext
-  -> (Array String)
+  -> Array String
   -> Aff (Array AudioBuffer)
 loadSoundBuffers ctx fileNames =
   sequential $ traverse (\name -> parallel (loadSoundBuffer ctx name)) fileNames

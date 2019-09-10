@@ -32,8 +32,7 @@
     "purescript-effect": "^2.0.0",
     "purescript-aff": "^5.0.0",
     "purescript-arraybuffer-types": "^2.0.0",
-    "purescript-arraybuffer": "^10.0.0",
-    "purescript-web-events": "^2.0.1"
+    "purescript-arraybuffer": "^10.0.0"
   },
   "devDependencies": {
     "purescript-console": "^4.0.0",
@@ -44,7 +43,8 @@
     "purescript-assert": "^4.0.0",
     "purescript-refs": "^4.1.0",
     "purescript-typelevel": "^6.0.0",
-    "purescript-typelevel-prelude": "^5.0.0"
+    "purescript-typelevel-prelude": "^5.0.0",
+    "purescript-web-events": "^2.0.1"
   },
   "resolutions": {
     "purescript-typelevel": "^6.0.0",

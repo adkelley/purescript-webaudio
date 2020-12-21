@@ -2,11 +2,14 @@ module DecodeAsync where
 
 import Prelude
 
+import Affjax (defaultRequest, request)
+import Affjax.ResponseFormat as ResponseFormat
 import Audio.WebAudio.AudioBufferSourceNode (StartOptions, setBuffer, startBufferSource)
 import Audio.WebAudio.BaseAudioContext (createBufferSource, currentTime, decodeAudioDataAsync, destination, newAudioContext)
 import Audio.WebAudio.Types (AudioContext, AudioBuffer, connect, Seconds)
 import Control.Parallel (parallel, sequential)
 import Data.Array ((!!))
+import Data.ArrayBuffer.ArrayBuffer (empty)
 import Data.Either (Either(..))
 import Data.HTTP.Method (Method(..))
 import Data.Maybe (Maybe(..))
@@ -14,8 +17,6 @@ import Data.Traversable (traverse)
 import Effect (Effect)
 import Effect.Aff (Aff, Fiber, launchAff)
 import Effect.Class (liftEffect)
-import Network.HTTP.Affjax (affjax, defaultRequest)
-import Network.HTTP.Affjax.Response as Response
 
 type ElapsedTime = Number
 
@@ -25,9 +26,15 @@ loadSoundBuffer
   -> String
   -> Aff AudioBuffer
 loadSoundBuffer ctx filename = do
-  res <- affjax Response.arrayBuffer $ defaultRequest { url = filename, method = Left GET }
-  buffer <- decodeAudioDataAsync ctx res.response
-  pure buffer
+  res <- request $ defaultRequest
+               { url = filename, method = Left GET, responseFormat = ResponseFormat.arrayBuffer }
+  -- res <- affjax Response.arrayBuffer $ defaultRequest { url = filename, method = Left GET }
+  case res <#> _.body of
+    Left err -> do
+      emptyBuffer <- liftEffect $ empty 0
+      decodeAudioDataAsync ctx emptyBuffer
+    Right body -> do
+      decodeAudioDataAsync ctx body
 
 -- | load and decode an array of audio buffers from a set of resources
 loadSoundBuffers

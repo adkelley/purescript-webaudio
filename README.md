@@ -8,7 +8,7 @@ API](https://webaudio.github.io/web-audio-api/)
 
 ## Installation
 
-$ bower install OR spago build
+$ spago build OR  bower install followed by pulp build
   
 ## Documentation
 Module documentation is [published on Pursuit](https://pursuit.purescript.org/packages/purescript-webaudio)
@@ -16,7 +16,7 @@ Module documentation is [published on Pursuit](https://pursuit.purescript.org/pa
 ## Examples  
 
 To build the examples perform the following scripts in order:
-1. `npm run build:example:xx` where xx is the example (squareWave, gain, decode, decodeAsync)
+1. `npm run spago:build:example:xx` where xx is the example (squareWave, gain, decode, decodeAsync)
 
 To run the examples in your browser, perform the following scripts in order:
 1. `npm run exec:example:xx` where xx is the example (squareWave, gain, decode, decodeAsync)
@@ -27,7 +27,7 @@ with the purescript-webaudio libary.
 ## Tests
 
 To build the test suite
-1. `npm run build:test:props`
+1. `npm run spago:build:test:props`
 
 To run the test suite
 1. `npm run exec:test:props` and inspect the output log

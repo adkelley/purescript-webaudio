@@ -34,6 +34,12 @@ exports.resume = function(ctx) {
   };
 };
 
+exports.close = function(ctx) {
+    return function() {
+        return ctx.close();
+    };
+};
+
 exports.decodeAudioData = function(cx) {
   return function(audioData) {
     return function(success) {
@@ -129,6 +135,12 @@ exports.createDynamicsCompressor = function(ctx) {
 exports.createConvolver = function(ctx) {
   return function() {
     return ctx.createConvolver();
+  };
+};
+
+exports.createPanner = function(ctx) {
+  return function() {
+    return ctx.createPanner();
   };
 };
 

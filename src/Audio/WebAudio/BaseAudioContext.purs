@@ -1,9 +1,9 @@
 module Audio.WebAudio.BaseAudioContext
-       ( newAudioContext, destination, sampleRate, currentTime, state
-       , suspend, resume, decodeAudioData, decodeAudioDataAsync
+       ( newAudioContext, destination, listener, sampleRate, currentTime, state
+       , suspend, resume, close, decodeAudioData, decodeAudioDataAsync
        , createBufferSource, createGain, createOscillator
        , createAnalyser, createBiquadFilter, createConvolver, createDelay
-       , createDynamicsCompressor, createStereoPanner
+       , createDynamicsCompressor, createStereoPanner, createPanner
        ) where
 
 -- | In this library, BaseAudioContext is used as a factory for creating the
@@ -13,7 +13,7 @@ module Audio.WebAudio.BaseAudioContext
 
 import Prelude
 
-import Audio.WebAudio.Types (AudioBuffer, AudioBufferSourceNode, AudioContext, DestinationNode, GainNode, OscillatorNode, DelayNode, BiquadFilterNode, AnalyserNode, StereoPannerNode, DynamicsCompressorNode, ConvolverNode, Seconds, Value, AudioContextState(..))
+import Audio.WebAudio.Types (AudioBuffer, AudioBufferSourceNode, AudioContext, DestinationNode, GainNode, AudioListener, OscillatorNode, DelayNode, BiquadFilterNode, AnalyserNode, StereoPannerNode, DynamicsCompressorNode, ConvolverNode, PannerNode, Seconds, Value, AudioContextState(..))
 import Audio.WebAudio.Utils (unsafeGetProp)
 import Data.ArrayBuffer.Types (ArrayBuffer)
 import Effect (Effect)
@@ -33,13 +33,16 @@ destination
   -> Effect DestinationNode
 destination = unsafeGetProp "destination"
 
+listener :: AudioContext -> Effect AudioListener
+listener = unsafeGetProp "listener"
+
 -- | The sample rate (in sample-frames per second) at which the BaseAudioContext handles audio.
 foreign import sampleRate
   :: AudioContext
   -> Effect Value
 
--- | If you want to schedule sounds accurateky, then use The current time from
--- | AudioContext rather than using the raw JavaScript time.
+-- | If you want to schedule sounds accurately, then use the current time from
+-- | the AudioContext rather than using the raw JavaScript time.
 foreign import currentTime
   :: AudioContext
   -> Effect Seconds
@@ -67,7 +70,7 @@ foreign import suspend :: AudioContext -> Effect Unit
 foreign import resume  :: AudioContext -> Effect Unit
 
 -- | Closes the audio context, releasing any system audio resources used by the BaseAudioContext.
--- | todo: close :: ..
+foreign import close   :: AudioContext -> Effect Unit
 
 -- | A property used to set the EventHandler for an event that is dispatched to BaseAudioContext
 -- | when the state of the AudioContext has changed (i.e. when the corresponding promise would have resolved).
@@ -141,3 +144,6 @@ foreign import createDynamicsCompressor
 foreign import createConvolver
   :: AudioContext
   -> Effect ConvolverNode
+
+-- | Create a PannerNode,
+foreign import createPanner :: AudioContext -> Effect PannerNode

@@ -116,13 +116,48 @@ let additions =
   }
 -------------------------------
 -}
-
-
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.13.8-20201217/packages.dhall sha256:f46d45e29977f3b57717b56d20a5ceac12532224516eea3012a4688f22ac1539
+      https://github.com/purescript/package-sets/releases/download/psc-0.14.1-20210613/packages.dhall sha256:5f10380b3ca7d3a32ea5c2b7535e4814a5e3f3590c70692f76e596d6ab0687b3
 
 let overrides = {=}
 
-let additions = {=}
+let additions =
+  { arraybuffer =
+      { dependencies =
+        [ "arraybuffer-types"
+        , "arrays"
+        , "effect"
+        , "float32"
+        , "foldable-traversable"
+        , "functions"
+        , "maybe"
+        , "nullable"
+        , "partial"
+        , "prelude"
+        , "refs"
+        , "tailrec"
+        , "typelevel"
+        , "typelevel-prelude"
+        , "uint"
+        , "unfoldable"
+        ]
+      , repo =
+          "https://github.com/purescript-contrib/purescript-arraybuffer"
+      , version =
+          "0a2e39ed6eb7fc0618591caa85fafcedf454cb6a"
+      }
+  , float32 = 
+      { dependencies =        
+        [ "gen"
+        , "maybe"
+        , "prelude"
+        , "psci-support"
+        ]
+      , repo =
+          "https://github.com/purescript-contrib/purescript-float32"
+      , version =
+          "v1.0.0"
+      }
+  }
 
 in  upstream // overrides // additions

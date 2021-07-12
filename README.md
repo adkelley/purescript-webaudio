@@ -6,6 +6,10 @@
 This library provides PureScript wrappers for the HTML5 [Web Audio
 API](https://webaudio.github.io/web-audio-api/)
 
+## WARNING
+
+We are still awaiting purs v0.14 versions of arraybuffer and float32 before it is possible to build with pulp/bower.
+
 ## Installation
 
 $ spago build OR  bower install followed by pulp build

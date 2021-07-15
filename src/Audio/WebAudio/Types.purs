@@ -140,7 +140,7 @@ instance connectableAudioNode :: Connectable AudioNode where
   connect s (Convolver n) = nodeConnect s n
   connect s (Destination n) = nodeConnect s n
   connect s (Panner n) = nodeConnect s n
-  connect s _ = pure unit  -- you can't connect to source nodes
+  connect _ _ = pure unit  -- you can't connect to source nodes
 
   disconnect s (Gain n) = nodeDisconnect s n
   disconnect s (Oscillator n) = nodeDisconnect s n
@@ -152,7 +152,7 @@ instance connectableAudioNode :: Connectable AudioNode where
   disconnect s (Convolver n) = nodeDisconnect s n
   disconnect s (Destination n) = nodeConnect s n
   disconnect s (Panner n) = nodeConnect s n
-  disconnect s _ = pure unit -- you can't disconnect from source nodes
+  disconnect _ _ = pure unit -- you can't disconnect from source nodes
 
   connectParam s (Gain n) p = unsafeConnectParam s n p
   -- not sure yet if you can connect to params on source nodes like the next two
@@ -164,7 +164,7 @@ instance connectableAudioNode :: Connectable AudioNode where
   connectParam s (StereoPanner n) p = unsafeConnectParam s n p
   connectParam s (DynamicsCompressor n) p = unsafeConnectParam s n p
   connectParam s (Convolver n) p = unsafeConnectParam s n p
-  connectParam s (Destination n) p = pure unit
+  connectParam _ (Destination _) _ = pure unit
   connectParam s (Panner n) p = unsafeConnectParam s n p
 
 -- foreign import connect
@@ -173,7 +173,6 @@ foreign import nodeConnect  :: ∀ m n. RawAudioNode m => RawAudioNode n => m
   -> Effect Unit
 
 -- There are multiple disconnect options - this one seems the most useful
--- foreign import disconnectRawA
 foreign import nodeDisconnect  :: ∀ m n. RawAudioNode m => RawAudioNode n => m
   -> n
   -> Effect Unit

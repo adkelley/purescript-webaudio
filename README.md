@@ -8,7 +8,7 @@ API](https://webaudio.github.io/web-audio-api/)
 
 ## WARNING
 
-We are still awaiting purs v0.14 versions of arraybuffer and float32 before it is possible to build with pulp/bower.
+We are just awaiting arraybuffer v11.0.1 to be added to the package sets so as to have a clean packages.dhall.
 
 ## Installation
 

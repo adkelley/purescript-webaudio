@@ -6,10 +6,6 @@
 This library provides PureScript wrappers for the HTML5 [Web Audio
 API](https://webaudio.github.io/web-audio-api/)
 
-## WARNING
-
-We are just awaiting arraybuffer v11.0.1 to be added to the package sets so as to have a clean packages.dhall.
-
 ## Installation
 
 $ spago build OR  bower install followed by pulp build

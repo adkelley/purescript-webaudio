@@ -32,6 +32,7 @@ foreign import data AudioListener :: Type
 foreign import data PannerNode :: Type
 
 -- | a 'raw' web-audio node
+class RawAudioNode :: forall k. k -> Constraint
 class RawAudioNode n
 
 data AudioContextState = SUSPENDED | RUNNING | CLOSED

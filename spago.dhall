@@ -11,7 +11,6 @@ You can edit this file as you like.
     , "effect"
     , "maybe"
     , "prelude"
-    , "quickcheck"
     , "web-events"
     ]
 , packages =

@@ -168,15 +168,27 @@ instance connectableAudioNode :: Connectable AudioNode where
   connectParam _ (Destination _) _ = pure unit
   connectParam s (Panner n) p = unsafeConnectParam s n p
 
+nodeConnect  :: ∀ m n
+  .  RawAudioNode m 
+  => RawAudioNode n 
+  => m 
+  -> n 
+  -> Effect Unit  
+nodeConnect = nodeConnectImpl
+
 -- foreign import connect
-foreign import nodeConnect  :: ∀ m n. RawAudioNode m => RawAudioNode n => m
-  -> n
-  -> Effect Unit
+foreign import nodeConnectImpl  :: ∀ m n. m -> n -> Effect Unit
 
 -- There are multiple disconnect options - this one seems the most useful
-foreign import nodeDisconnect  :: ∀ m n. RawAudioNode m => RawAudioNode n => m
+nodeDisconnect  :: ∀ m n
+  .  RawAudioNode m 
+  => RawAudioNode n 
+  => m 
   -> n
   -> Effect Unit
+nodeDisconnect = nodeDisconnectImpl
+
+foreign import nodeDisconnectImpl  :: ∀ m n. m -> n -> Effect Unit
 
 -- | Connect a source Node to a parameter on a destination Node.
 -- | the String parameter names an audio parameter on the target node, n
@@ -188,10 +200,16 @@ foreign import nodeDisconnect  :: ∀ m n. RawAudioNode m => RawAudioNode n => m
 -- | The Web-Audio JavaScript requires the original parameter, not a copy
 -- |
 -- | This is very unsafe.  The parameter must exist on the target.
-foreign import unsafeConnectParam  :: ∀ m n. RawAudioNode m => RawAudioNode n => m
+unsafeConnectParam  :: ∀ m n
+  .  RawAudioNode m 
+  => RawAudioNode n 
+  => m
   -> n
   -> String
   -> Effect Unit
+unsafeConnectParam = unsafeConnectParamImpl
+
+foreign import unsafeConnectParamImpl  :: ∀ m n. m -> n -> String -> Effect Unit
 
 -- | an Audio Node
 data AudioNode =

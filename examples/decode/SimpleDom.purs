@@ -26,7 +26,8 @@ instance showResponseType :: Show ResponseType where
 data ProgressEventType = ProgressLoadEvent
 instance showProgressEventType :: Show ProgressEventType where
     show ProgressLoadEvent = "load"
-
+      
+data HttpData :: forall k. k -> Type
 data HttpData a
   = NoData
   | ArrayBufferData ArrayBuffer

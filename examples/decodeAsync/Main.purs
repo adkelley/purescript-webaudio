@@ -30,7 +30,7 @@ loadSoundBuffer ctx filename = do
                { url = filename, method = Left GET, responseFormat = ResponseFormat.arrayBuffer }
   -- res <- affjax Response.arrayBuffer $ defaultRequest { url = filename, method = Left GET }
   case res <#> _.body of
-    Left err -> do
+    Left _ -> do
       emptyBuffer <- liftEffect $ empty 0
       decodeAudioDataAsync ctx emptyBuffer
     Right body -> do

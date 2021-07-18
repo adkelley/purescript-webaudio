@@ -46,7 +46,9 @@
     }
   ],
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "spago": "^0.19.1"
+  },
   "dependencies": {
     "g": "^2.0.1",
     "psc-package": "^0.3.2",

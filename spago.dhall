@@ -8,14 +8,9 @@ You can edit this file as you like.
     [ "aff"
     , "arraybuffer"
     , "arraybuffer-types"
-    , "arrays"
     , "effect"
-    , "foldable-traversable"
-    , "lists"
-    , "math"
     , "maybe"
-    , "strings"
-    , "tuples"
+    , "prelude"
     , "web-events"
     ]
 , packages =

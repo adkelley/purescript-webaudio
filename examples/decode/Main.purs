@@ -30,7 +30,7 @@ toArrayBuffer hd =
 play :: XMLHttpRequest -- |^ the request object
      -> DOMEvent -- |^ the load event
      -> Effect Unit
-play req ev = do
+play req _ = do
   ctx <- newAudioContext
   src <- createBufferSource ctx
   dst <- destination ctx

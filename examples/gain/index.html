@@ -6,10 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <h1>Play gain.wav, lower volume 3-seconds from start</h1>
-    <audio id="noise" src="gain.wav" autoplay>
-      Your browser does not support the audio element
-    </audio>
-    <script type="text/javascript" src="output/bundle.js"></script>
+    <style>
+    .button {
+        color: white;
+        border-radius: 12px;
+        padding: 15px 32px;
+        text-align: center;
+        font-size: 16px
+    }
+    .play-button {
+        background-color: green;
+    }
+    </style>
+    <div id="app">
+        <h1>Play gain.wav, lower volume 3-seconds from start</h1>
+        <button id="play" class="button play-button">PLAY</button>
+    <!-- <audio id="noise" src="gain.wav" autoplay>
+         Your browser does not support the audio element -->
+    <!-- </audio> -->
+    </div>
+    <script type="text/javascript" src="output/bundle.js"></script> 
   </body>
 </html>

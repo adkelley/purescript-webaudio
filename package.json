@@ -9,7 +9,7 @@
   "main": "",
   "scripts": {
     "postinstall": "bower install",
-    "clean": "rm -rf dist bower_components output examples/*/output test/*/output",
+    "clean": "rm -rf dist bower_components node_modules output examples/*/output test/*/output",
     "build": "pulp build",
     "spago:build": "spago build",
     "spago:build:example:squareWave": "spago -x ./squareWave.dhall bundle-app --main SquareWave --to examples/square-wave/output/bundle.js",

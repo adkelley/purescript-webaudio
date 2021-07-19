@@ -13,10 +13,18 @@ import Data.ArrayBuffer.ArrayBuffer (empty)
 import Data.Either (Either(..))
 import Data.HTTP.Method (Method(..))
 import Data.Maybe (Maybe(..))
+import Data.Newtype (wrap)
 import Data.Traversable (traverse)
 import Effect (Effect)
 import Effect.Aff (Aff, Fiber, launchAff)
 import Effect.Class (liftEffect)
+import Effect.Exception (throw)
+import Unsafe.Coerce (unsafeCoerce)
+import Web.DOM.ParentNode (querySelector)
+import Web.Event.EventTarget (EventTarget, addEventListener, eventListener)
+import Web.HTML (window)
+import Web.HTML.HTMLDocument (toParentNode)
+import Web.HTML.Window (document)
 
 type ElapsedTime = Number
 
@@ -67,8 +75,8 @@ playSoundAt ctx mbuffer elapsedTime =
     _ ->
       pure unit
 
-main :: Effect (Fiber Unit)
-main = launchAff $ do
+loadPlayBuffers :: Effect (Fiber Unit)
+loadPlayBuffers = launchAff $ do
   ctx <- liftEffect newAudioContext
   buffers <- loadSoundBuffers ctx ["hihat.wav", "kick.wav", "snare.wav"]
   _ <- liftEffect $ playSoundAt ctx (buffers !! 0) 0.0
@@ -78,3 +86,13 @@ main = launchAff $ do
   _ <- liftEffect $ playSoundAt ctx (buffers !! 1) 2.0
   _ <- liftEffect $ playSoundAt ctx (buffers !! 2) 2.5
   pure unit
+
+main :: Effect Unit
+main = do
+  doc <- map toParentNode (window >>= document)
+  playButton <- querySelector (wrap "#play") doc
+  case playButton of
+    Just e -> do
+      el <- eventListener \_ -> loadPlayBuffers
+      addEventListener (wrap "click") el false (unsafeCoerce e :: EventTarget)
+    Nothing -> throw "no play button"
